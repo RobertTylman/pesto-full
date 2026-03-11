@@ -121,7 +121,7 @@ class Resnet1d(nn.Module):
         self.conv_layers = nn.Sequential(*conv_layers)
 
         self.flatten = nn.Flatten(start_dim=1)
-        self.fc = ToeplitzLinear(n_bins_in * n_ch[-1], output_dim)
+        self.fc = ToeplitzLinear(n_bins_in * n_ch[-1], output_dim) #critical
 
         self.final_norm = nn.Softmax(dim=-1)
 
