@@ -8,3 +8,6 @@ wandb
 !src/data
 
 **/__pycache__
+
+MIR-1K
+mir1k.zip

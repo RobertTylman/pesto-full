@@ -1,3 +1,4 @@
+
 import os
 import argparse
 import torch
@@ -37,12 +38,8 @@ def process_mir1k(input_dir, output_dir):
 
             # Check if it's stereo
             if waveform.shape[0] == 2:
-                # Combine channels (sum them)
-                # Left is vocal, Right is accompaniment
-                mono_waveform = waveform.sum(dim=0, keepdim=True)
-                
-                # Normalize if necessary (optional, but keep it centered)
-                # mono_waveform = mono_waveform / 2.0
+                # Right channel is music (accompaniment)
+                mono_waveform = waveform[1:2, :]
             else:
                 # Already mono, just copy
                 mono_waveform = waveform
@@ -61,7 +58,7 @@ def process_mir1k(input_dir, output_dir):
             print(f"Error processing {wav_file}: {e}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert MIR-1K stereo files to mono.")
+    parser = argparse.ArgumentParser(description="Convert MIR-1K stereo files to mono (right channel only).")
     parser.add_argument("input_dir", type=str, help="Directory containing MIR-1K .wav files")
     parser.add_argument("output_dir", type=str, help="Directory to save converted mono files")
     
